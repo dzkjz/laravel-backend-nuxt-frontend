@@ -34,7 +34,13 @@ class AuthController extends Controller
     public function login(UserLoginRequest $request)
     {
         if (!$token = auth()->attempt($request->only(['email', 'password']))) {
-            return response()->json(['errors' => 'wrong credentials'], 422);
+            return response()->json(
+                [
+                    'errors' => [
+                        'email' => ['wrong credentials'],
+                        'password' => ['wrong credentials'],
+                    ],
+                ], 422);
         }
 
         return UserResource::make(auth()->user())->additional([
