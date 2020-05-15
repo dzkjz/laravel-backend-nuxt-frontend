@@ -39,6 +39,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     // Rest omitted for brevity
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -59,5 +60,15 @@ class User extends Authenticatable implements JWTSubject
     {
         //return a key value array containing any claims to be added to JWT
         return [];
+    }
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 }

@@ -6,3 +6,10 @@ Route::post('register', 'AuthController@register')->middleware('guest');
 Route::post('login', 'AuthController@login')->middleware('guest');
 Route::get('user', 'AuthController@user')->middleware('auth');
 Route::post('logout', 'AuthController@logout')->middleware('auth');
+
+
+Route::group(['prefix' => 'topics'], function () {
+    Route::post('/', 'TopicController@store')->middleware('auth');
+    Route::get('/', 'TopicController@index');
+    Route::get('/{topic}', 'TopicController@show');
+});
