@@ -20,6 +20,8 @@ class PostResource extends JsonResource
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
             'user' => $this->user,
+            'like_count' => $this->likes->count(),
+            'users_like_this' => UserResource:: collection($this->likes->pluck('user')),
         ];
 
 //        return parent::toArray($request);

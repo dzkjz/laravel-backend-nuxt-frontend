@@ -81,4 +81,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->id === $post->user->id;
     }
+
+    public function userHasLikedPost(Post $post)
+    {
+        return $post->likes->pluck('user')->contains($this);
+    }
+
 }
