@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TopicCreateRequest;
+use App\Http\Requests\TopicUpdateRequest;
 use App\Http\Resources\TopicResource;
 use App\Post;
 use App\Topic;
@@ -36,5 +37,24 @@ class TopicController extends Controller
     public function show(Topic $topic)
     {
         return TopicResource::make($topic);
+    }
+
+    public function update(TopicUpdateRequest $request, Topic $topic)
+    {
+        //通过TopicPolicy的update方法检测当前用户是否有权限执行操作。
+        $this->authorize('update', $topic);
+
+        $topic->title = $request->get('title');
+        $topic->save();
+        return TopicResource::make($topic);
+    }
+
+    public function destroy(Topic $topic)
+    {
+        $this->authorize('destroy', $topic);
+
+        $topic->delete();
+
+        return response()->json(['messages' => 'success deleted'], 202);
     }
 }

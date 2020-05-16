@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TopicCreateRequest extends FormRequest
+class PostUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class TopicCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255',
             'body' => 'required|string|max:2000',
         ];
     }
