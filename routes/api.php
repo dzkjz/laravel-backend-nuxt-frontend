@@ -7,6 +7,11 @@ Route::post('login', 'AuthController@login')->middleware('guest');
 Route::get('user', 'AuthController@user')->middleware('auth');
 Route::post('logout', 'AuthController@logout')->middleware('auth');
 
+Route::group(['prefix' => 'password'], function () {
+    Route::post('create', 'PasswordResetController@create');
+    Route::get('find/{token}', 'PasswordResetController@find');
+    Route::post('reset', 'PasswordResetController@reset');
+});
 
 Route::group(['prefix' => 'topics'], function () {
     Route::post('/', 'TopicController@store')->middleware('auth');
